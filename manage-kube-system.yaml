@@ -1,0 +1,12 @@
+apiVersion: addons.sigs.k8s.io/v1alpha1
+kind: ConfigManagement
+metadata:
+  name: config-management
+  namespace: config-management-system
+spec:
+  clusterName: my-gke-cluster
+  git:
+    syncRepo: git@github.com:filmil/foo-corp-example.git
+    syncBranch: manage-kube-system
+    secretType: ssh
+    policyDir: "foo-corp"
