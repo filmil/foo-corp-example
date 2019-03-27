@@ -17,5 +17,5 @@ webhooks:
           - pods
     failurePolicy: Ignore
     clientConfig:
-      caBundle: "foo"
+      caBundle: "foobar"
       url: "https://us-central1-hightowerlabs.cloudfunctions.net/denyenv"
