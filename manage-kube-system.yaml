@@ -7,6 +7,6 @@ spec:
   clusterName: my-gke-cluster
   git:
     syncRepo: git@github.com:filmil/foo-corp-example.git
-    syncBranch: filmil-manage-kube-system
+    syncBranch: fishfood-18
     secretType: ssh
     policyDir: "foo-corp"
