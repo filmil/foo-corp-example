@@ -1,0 +1,21 @@
+# Borrowed from kelseyhightower's example at:
+# https://github.com/kelseyhightower/denyenv-validating-admission-webhook/commit/275972999c62a802e9df58e3d35bf67e67f1d6a6#diff-9c01df03a5136f469388fbca39ee40b9
+apiVersion: admissionregistration.k8s.io/v1beta1
+kind: ValidatingWebhookConfiguration
+metadata:
+  name: denyenv
+webhooks:
+  - name: denyenv.hightowerlabs.com
+    rules:
+      - apiGroups:
+          - ""
+        apiVersions:
+          - v1
+        operations:
+          - CREATE
+        resources:
+          - pods
+    failurePolicy: Ignore
+    clientConfig:
+      caBundle: "foo"
+      url: "https://us-central1-hightowerlabs.cloudfunctions.net/denyenv"
