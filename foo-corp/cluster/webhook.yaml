@@ -1,21 +1,26 @@
-# Borrowed from kelseyhightower's example at:
-# https://github.com/kelseyhightower/denyenv-validating-admission-webhook/commit/275972999c62a802e9df58e3d35bf67e67f1d6a6#diff-9c01df03a5136f469388fbca39ee40b9
 apiVersion: admissionregistration.k8s.io/v1beta1
 kind: ValidatingWebhookConfiguration
-metadata:
-  name: denyenv
-webhooks:
-  - name: denyenv.hightowerlabs.com
-    rules:
-      - apiGroups:
-          - ""
-        apiVersions:
-          - v1
-        operations:
-          - CREATE
-        resources:
-          - pods
-    failurePolicy: Ignore
-    clientConfig:
-      caBundle: "foobar"
-      url: "https://us-central1-hightowerlabs.cloudfunctions.net/denyenv"
+metadata:            
+  name: istio-galley
+webhooks:  
+- clientConfig:
+    caBundle: LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSUM1akNDQWM2Z0F3SUJBZ0lSQUtBMU9mcXlEMEc2L1FYejNUaFVKUm93RFFZSktvWklodmNOQVFFTEJRQXcKSERFYU1CZ0dBMVVFQ2hNUmF6aHpMbU5zZFhOMFpYSXViRzlqWVd3d0hoY05NVGt3TWpBME1qRXhNalF5V2hjTgpNakF3TWpBME1qRXhNalF5V2pBY01Sb3dHQVlEVlFRS0V4RnJPSE11WTJ4MWMzUmxjaTVzYjJOaGJEQ0NBU0l3CkRRWUpLb1pJaHZjTkFRRUJCUUFEZ2dFUEFEQ0NBUW9DZ2dFQkFPdldIKy9oRUVCVWpUVE11NDRLcExjWE5lUU0KMmFjOFAvMEJZMzR5UjU3TmNxNHJWcGVHVW5NZ290ZUJlMXAzN2ZCaWF6SzNUS1FOd1BWaExMN1E4VHdlVjVmZApaTGVGVTNUenRkVGlxS2JVRVFFTlV6TlJCS1l2dlFET1pRckhEWFJaMVBmaU1lTWpKcGFtQmx0REJxcDAwUmRpCitIdkN4YnhOR2NBeEQ1ajQ2RlZvZkg1eWh6czZkQitoa2NkZFhNcnVvZHVqVkM2cmNaL0Zwakx3czl2RmMvTzIKR2U5WElwUUN4c1A2TG1EWGdocndQcFg2bkdhQXNRUmZ5NEYwZmExMWsrVDB2VGFEdjZ5WmdjZjBhWWFCaVF2dgpGZUkyZitTeXB5UmMvcUVIVFFPU001ZlpOa1lLc29UdjdTNzJDRzVvajBzYXh6TzdOL1FBU09oWDdpY0NBd0VBCkFhTWpNQ0V3RGdZRFZSMFBBUUgvQkFRREFnSUVNQThHQTFVZEV3RUIvd1FGTUFNQkFmOHdEUVlKS29aSWh2Y04KQVFFTEJRQURnZ0VCQUFCNUs5N0ZsU3QxQ2s4SmVnYzhtajFuN2FCdXdybXdWZ1Y1a0ZTMHQ0WVU5aFZjdG4wOQp0NmZ1UHlqK0s2SGJUNUUvOWkxVjNCemZSTXJTZndndEtyQ2tFNnlwVWczWjRBYVZ4QkI5dzk1VG1DeFFBTEtVCkI2OUlMY1dESDljREl3WmV2REgwdDRPc2VLdnB2VFRqOGZiOTVneFJKTmp3ajJ4ZmhPSnpMMVg2NmpjYWZRS1kKejJ2QSsxRTRTbldJVzlUSWtzNW16Vmc2a3daYzg5b2RYNzc5Z0FBdW5WakVtbTMxZW1sbjZnaTJVNVVoQXBqSgpXSklPamZQNlJlWWVWYitFbXBnVXdhdjNRb285WXEzOC9mc1NEd295RUNUUG1XTVo0VENaU3I2aVpUUm5DQUZBCitKYUhCTVYwcHUvQWVrOXdYeWlNSXk0VWpSYjRDN1BySVhnPQotLS0tLUVORCBDRVJUSUZJQ0FURS0tLS0tCg==
+    service:       
+      name: istio-galley
+      namespace: istio-system
+      path: /admitpilot
+  failurePolicy: Ignore
+  name: pilot.validation.istio.io
+  rules:                   
+  - apiGroups:  
+    - config.istio.io
+    apiVersions:
+    - v1alpha2
+    operations:
+    - CREATE
+    - UPDATE
+    resources:
+    - httpapispecs
+    - httpapispecbindings
+    - quotaspecs
+    - quotaspecbindings
