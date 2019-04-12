@@ -2,8 +2,8 @@ apiVersion: addons.sigs.k8s.io/v1alpha1
 kind: ConfigManagement
 metadata:
   name: config-management
-  namespace: config-management-system
 spec:
+  channel: dev
   clusterName: my-gke-cluster
   git:
     syncRepo: git@github.com:filmil/foo-corp-example.git
